@@ -22,5 +22,25 @@ namespace BulkyWeb.Controllers
         {
             return View();
         }
+        [HttpPost]
+        public IActionResult Create(Category category)
+        {
+            //Adding custom error message
+            if (category.Name == category.DisplayOrder.ToString())
+            {
+                ModelState.AddModelError("name", "The display order cannot exactly match the name.");
+            }
+            if (category.Name != null && category.Name.ToLower() == "test")
+            {
+                ModelState.AddModelError("", "Test is an invalid value.");
+            }
+            if (ModelState.IsValid)
+            {
+                _context.Categories.Add(category);
+                _context.SaveChanges();
+                return RedirectToAction("Index");
+            }
+            return View();
+        }
     }
 }
