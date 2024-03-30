@@ -25,7 +25,7 @@ namespace Bulky.DataAccess.Repository
             dbSet.Add(entity);
         }
 
-        public T Get(Expression<Func<T, bool>> filter)
+        public T? Get(Expression<Func<T, bool>> filter)
         {
             IQueryable<T> query = dbSet;
             query = query.Where(filter);
@@ -43,9 +43,9 @@ namespace Bulky.DataAccess.Repository
             dbSet.Remove(entity);
         }
 
-        public void RemoveRange(IEnumerable<T> entity)
+        public void RemoveRange(IEnumerable<T> entities)
         {
-            dbSet.RemoveRange(entity);
+            dbSet.RemoveRange(entities);
         }
     }
 }
